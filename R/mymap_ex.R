@@ -9,7 +9,7 @@ rna <- mfr %>%
   filter(region %in% na_dpts)
 
 ggplot(rna, aes(x = long, y = lat, group = group)) +
-  geom_polygon(fill = "white", colour = "black") +
+  geom_polygon(fill = "skyblue", colour = "black") +
   coord_map() +
   theme_void() +
   ggtitle("Nouvelle Aquitaine")
