@@ -2,4 +2,4 @@
 *This vizualisation comes with no warranty*
 
 
-![Demo](COVID19_NouvAqui_10mars.gif)
+![Demo](COVID19_NouvAqui_11mars.gif)
