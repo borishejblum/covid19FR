@@ -9,7 +9,7 @@ rna <- mfr %>%
 
 library(readxl)
 library(lubridate)
-cas_NA_ARS <- suppressWarnings(read_xlsx("data/raw/Tableau_decompte_des_cas_confirmes_COVID19_NA_10_03_2020.xlsx", 
+cas_NA_ARS <- suppressWarnings(read_xlsx("data/raw/Tableau_decompte_des_cas_confirmes_NA_1103.xlsx", 
                     skip=2, col_types = c("date", "text", "numeric"), ))
 cas_NA_ARS <- cas_NA_ARS %>% 
   filter(!is.na(Date))
@@ -59,8 +59,8 @@ p <- rna_full2plot %>%
   ggplot(aes(x = long, y = lat, group = group)) +
     geom_polygon(aes(fill=CumNb), colour = "black") +
     scale_fill_gradientn("Incidence cumulée\nd'infections à COVID19\nconfirmées",
-                         colours=c("white", "red", "darkred", "black")
-                         #, limits=c(0,100) 
+                         colours=c("white", "salmon", "red", "darkred", "black")
+                         , limits=c(0,30) 
                          )+
     coord_map() +
     theme_void() +
@@ -76,8 +76,8 @@ library(gganimate)
 library(transformr)
 anim <- p + 
   ggtitle("Nouvelle Aquitaine", subtitle = '{closest_state}') +
-  transition_states(Date, transition_length = 0, state_length = 1.5)
-anim
-#anim_save(filename = "COVID19_NouvAqui_10mars.gif")
+  transition_states(Date, transition_length = 0, state_length = 1)
+animate(anim, fps=5, end_pause=10)
+anim_save(filename = "COVID19_NouvAqui_11mars.gif")
 
 
