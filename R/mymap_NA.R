@@ -50,7 +50,7 @@ rna_full2plot <- rna_full2plot %>%
   mutate(CumNb = cumsum(Nombre)) %>% 
   select(-subregion, -Dpt, -region_name)
 
-rna_full2plot %>% filter(order == 6699)
+#rna_full2plot %>% filter(order == 6699)
   
 library(ggplot2)
 #temp <- full_join(rna, cas_NA_ARS_dpt, by=c("region"="dep_name"))

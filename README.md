@@ -1,3 +1,5 @@
-Cette visualisation est sans garantie.
+*Cette visualisation est sans garantie* /
+*This vizualisation comes with no warranty*
 
-This vizualisation comes with no warranty.
+
+![Demo](COVID19_NouvAqui_10mars.gif)
