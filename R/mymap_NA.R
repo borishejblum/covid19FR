@@ -1,3 +1,4 @@
+rm(list=ls())
 library(maps)
 mfr <- ggplot2::map_data("france")
 na_dpts <- c("Gironde", "Pyrenees-Atlantiques", "Landes", "Lot-et-Garonne", 
@@ -9,9 +10,11 @@ rna <- mfr %>%
 
 library(readxl)
 library(lubridate)
-cas_NA_ARS <- suppressWarnings(read_xlsx("data/raw/Tableau_decompte_des_cas_confirmes_NA_1103.xlsx", 
-                    skip=2, col_types = c("date", "text", "numeric"), ))
+cas_NA_ARS <- suppressWarnings(read_xlsx("data/raw/Tableau_decompte_des_cas_confirmes_NA_publi12-03-2020.xlsx", 
+                    skip=2, col_types = c("date", "text", "numeric", "text"), ))
+colnames(cas_NA_ARS)[1] <- "Date"
 cas_NA_ARS <- cas_NA_ARS %>% 
+  select(1:3) %>% 
   filter(!is.na(Date))
 dpt <- read.csv("data/departements-region.csv")
 
@@ -51,21 +54,24 @@ rna_full2plot <- rna_full2plot %>%
   select(-subregion, -Dpt, -region_name)
 
 #rna_full2plot %>% filter(region == "Gironde")
-View(rna_full2plot %>% filter(order == 9107))
+#View(rna_full2plot %>% filter(order == 9107))
 
   
 library(ggplot2)
 #temp <- full_join(rna, cas_NA_ARS_dpt, by=c("region"="dep_name"))
 p <- rna_full2plot %>% 
-  #filter(Date == ymd("2020-03-10")) %>% 
+  #filter(Date == ymd("2020-03-12")) %>% 
   ggplot(aes(x = long, y = lat, group = group)) +
     geom_polygon(aes(fill=CumNb), colour = "black") +
     scale_fill_gradientn("Incidence cumulée\nd'infections à COVID19\nconfirmées",
-                         colours=c("ivory", "deepskyblue", "dodgerblue2", "blue", "midnightblue")
-                         #breaks=c(0,1,5,10,25,20)
-                         #, trans = "log"
+                         colours=c("ivory", "lightskyblue1", "deepskyblue", "dodgerblue2", 
+                                   "blue", "midnightblue")
+                         , values=scales::rescale(c(0,2,10,15,20,30), to=c(0,1))
+                         #, minor_breaks=c(5,20)
+                         , breaks=c(0,5,10,20,30)
+                         #, trans = "log1p"
                          , limits=c(0,30) 
-                         )+
+                         ) +
     coord_map() +
     theme_void() +
     labs(caption = "Source : ARS Nouvelle Aquitaine") +
@@ -73,7 +79,8 @@ p <- rna_full2plot %>%
     #facet_wrap(~Date) +
     NULL
 p + ggtitle("Nouvelle Aquitaine") +
-  facet_wrap(~Date)
+  facet_wrap(~Date) +
+  NULL
 
 
 library(gganimate)
@@ -81,7 +88,7 @@ library(transformr)
 anim <- p + 
   ggtitle("Nouvelle Aquitaine", subtitle = '{closest_state}') +
   transition_states(Date, transition_length = 0, state_length = 1)
-animate(anim, fps=10, end_pause=15, nframes = 160)
-anim_save(filename = "COVID19_NouvAqui_11mars.gif")
+animate(anim, fps=10, end_pause=15, nframes = 170)
+anim_save(filename = "COVID19_NouvAqui_12mars.gif")
 
 
