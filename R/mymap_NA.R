@@ -50,7 +50,9 @@ rna_full2plot <- rna_full2plot %>%
   mutate(CumNb = cumsum(Nombre)) %>% 
   select(-subregion, -Dpt, -region_name)
 
-#rna_full2plot %>% filter(order == 6699)
+#rna_full2plot %>% filter(region == "Gironde")
+View(rna_full2plot %>% filter(order == 9107))
+
   
 library(ggplot2)
 #temp <- full_join(rna, cas_NA_ARS_dpt, by=c("region"="dep_name"))
@@ -59,7 +61,9 @@ p <- rna_full2plot %>%
   ggplot(aes(x = long, y = lat, group = group)) +
     geom_polygon(aes(fill=CumNb), colour = "black") +
     scale_fill_gradientn("Incidence cumulée\nd'infections à COVID19\nconfirmées",
-                         colours=c("white", "salmon", "red", "darkred", "black")
+                         colours=c("ivory", "deepskyblue", "dodgerblue2", "blue", "midnightblue")
+                         #breaks=c(0,1,5,10,25,20)
+                         #, trans = "log"
                          , limits=c(0,30) 
                          )+
     coord_map() +
