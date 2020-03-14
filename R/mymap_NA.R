@@ -10,7 +10,7 @@ rna <- mfr %>%
 
 library(readxl)
 library(lubridate)
-cas_NA_ARS <- suppressWarnings(read_xlsx("data/raw/Tableau_decompte_des_cas_confirmes_NA_publi13-03-2020.xlsx", 
+cas_NA_ARS <- suppressWarnings(read_xlsx("data/raw/Tableau_decompte_des_cas_confirmes_NA_publi14-03-2020.xlsx", 
                     skip=2, col_types = c("date", "text", "numeric", "text"), ))
 colnames(cas_NA_ARS)[1] <- "Date"
 cas_NA_ARS <- cas_NA_ARS %>% 
@@ -89,6 +89,6 @@ anim <- p +
   ggtitle("Nouvelle Aquitaine", subtitle = '{closest_state}') +
   transition_states(Date, transition_length = 0, state_length = 1)
 animate(anim, fps=10, end_pause=15, nframes = 170)
-anim_save(filename = "COVID19_NouvAqui_13mars.gif")
+anim_save(filename = "COVID19_NouvAqui_14mars.gif")
 
 
