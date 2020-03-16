@@ -47,7 +47,7 @@ server <- function(input, output, session) {
   output$fct_exp <- renderValueBox({
     valueBox(
       value = fun_fct_exp(dataPlot(), input$date),
-      subtitle = "Taux d'augmentation de diagnostiques positifs par rapport au jours précédent",
+      subtitle = "Taux d'augmentation de diagnostics positifs par rapport aux jours précédents",
       icon = icon("chart-line")
     )
   })

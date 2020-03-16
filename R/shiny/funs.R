@@ -48,7 +48,7 @@ fun_plot_bar <- function(data, input_date, range_date){
                  labels=scales::date_format("%d-%m"),
                  limits = range_date) +
     labs(x = "Date", y = "Nombre de cas",
-         title = "Nombre cas diagnostiqués par jour") +
+         title = "Nombre de cas diagnostiqués par jour") +
     theme_classic() +
     theme(axis.title.y = element_text(angle = 0, vjust = .5))
 }
