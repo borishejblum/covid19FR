@@ -6,6 +6,7 @@ Author: Boris Hejblum, Jérémie Lespinasse, Anaïs Rouanet
 Maintainer: Boris Hejblum <boris.hejblum@u-bordeaux.fr>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
+Depends: R (>= 3.5.0)
 Imports: tidyverse,
          pdftools,
          tm,
@@ -16,10 +17,12 @@ Imports: tidyverse,
          shiny,
          RColorBrewer,
          readxl,
-        lubridate,
-        dplyr,
-        gganimate,
-        transformr
+         lubridate,
+         dplyr,
+         gganimate,
+         transformr,
+         shinydashboard,
+         patchwork
 License: MIT License
 Encoding: UTF-8
 LazyData: true

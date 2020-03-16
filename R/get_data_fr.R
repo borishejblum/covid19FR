@@ -1,7 +1,8 @@
-#################################################################
-# Data
-
-# SPF france
+#' read data from DPF
+#' 
+#' @importFrom readr read_csv
+#' @importFrom stringr str_detect
+#' @import dplyr 
 get_data_spf_FR <- function(file_xlsx){
   data_fr <- readxl::read_xlsx(file_xlsx, skip = 1,
                                col_names = c("region", "n", "zone", "date"),
@@ -10,13 +11,13 @@ get_data_spf_FR <- function(file_xlsx){
   
   # Geography --------------------------------------------------------------------
   # Map france reg
-  map_fr <- read_csv("data/regions-contours.csv") %>%
-    filter(str_detect(group, "^.*\\.1$")) # simplification of the map (1 polygon/region)
+  map_fr <- read.csv("data/regions-contours.csv") %>%
+    filter(stringr::str_detect(group, "^.*\\.1$")) # simplification of the map (1 polygon/region)
   reg_metro <- unique(map_fr$id)
   
   range_date_fr <- range(data_fr$date, na.rm = T) # min and max date observed
   seq_date <- seq(range_date_fr[1], range_date_fr[2], by = "day") # all the observed date by day
-  all_dates <- tibble(date = rep(seq_date, length(reg_metro)),
+  all_dates <- dplyr::tibble(date = rep(seq_date, length(reg_metro)),
                       region = rep(reg_metro, each = length(seq_date)))
   
   # Join ARS data and map france
@@ -44,5 +45,10 @@ get_data_spf_FR <- function(file_xlsx){
                             "\n", n_sum, " cas",
                             "\n", n, " nouveaux cas")) %>%
     rename(id = region)
+  
+  return(list(data = data_fr_2,
+              range = range_date_fr,
+              map = map_fr)
+  )
 }
 

@@ -4,13 +4,16 @@
 #'
 #'@examples
 #'if(interactive()){
-#' vici::run_app()
+#' Covid19FRNA::run_app()
 #'}
 #'
 #' @export
 #' @importFrom shiny runApp
 run_app <- function(...) {
-  shiny::runApp(system.file("app", package = "Covid19FRNA"), port=8080 ,...)
+  shiny::runApp(list(ui = app_ui, 
+                     server = app_server), 
+                port = 8080,
+                ...)
 }
 
 

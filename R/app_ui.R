@@ -1,6 +1,8 @@
 #' User interface
 #' 
 #' @import shiny
+#' @import shinydashboard
+#' @import ggiraph
 app_ui <- function() {
   dashboardPage(
     dashboardHeader(title = "Evolution de l'épidémie à COVID-19 en France et en Aquitaine",
@@ -8,7 +10,7 @@ app_ui <- function() {
     ),
     dashboardSidebar(disable = T),
     dashboardBody(
-      includeCSS("R/shiny/style.css"),
+      includeCSS("style.css"),
       fluidRow(
         column(12,
                fluidRow(

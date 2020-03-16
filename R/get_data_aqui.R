@@ -1,11 +1,14 @@
 #################################################################
 # Data
-
+#'
+#'
+#'@importFrom ggplot2 map_data 
+#'@import dplyr
 get_data_aqui <- function(file_xlsx){
   
   # ARS nouvelle aquitaine
   end_idx <- which(readxl::read_xlsx(file_xlsx)[[1]] == "TOTAL")
-  data_aqui <- readxl::read_xlsx(file, range = paste0("A4:C", end_idx),
+  data_aqui <- readxl::read_xlsx(file_xlsx, range = paste0("A4:C", end_idx),
                                  col_names = c("date", "dpt", "n"),
                                  col_types = c("date", "text", "numeric")) %>%
     mutate(date = as.Date(date, format = "%Y-%m-%d"))
@@ -14,7 +17,7 @@ get_data_aqui <- function(file_xlsx){
   # Departements nouvelle aquitaine
   regions <- read.csv("data/departements-region.csv")
   # Map france dep
-  mfr <- map_data("france")
+  mfr <- ggplot2::map_data("france")
   #subset map france
   map_aqui <- regions %>%
     filter(region_name == "Nouvelle-Aquitaine") %>%
@@ -50,5 +53,8 @@ get_data_aqui <- function(file_xlsx){
     ungroup() %>%
     rename(id = dpt)
   
-  return(data_aqui_2)
+  return(list(data = data_aqui_2,
+              range = range_date_aqui,
+              map = map_aqui)
+  )
 }

@@ -14,7 +14,7 @@ Launch Covid19FRNA Shiny App
 }
 \examples{
 if(interactive()){
-vici::run_app()
+Covid19FRNA::run_app()
 }
 
 }
