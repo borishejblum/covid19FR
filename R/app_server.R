@@ -49,7 +49,7 @@ app_server <- function(input, output, session) {
     girafe(ggobj = fun_plot_map(dataPlot()[["data"]], input$date),
            options = list(opts_tooltip(css = "font-size: 11px; color: white; background: black; border-radius: 3px; padding: 3px;",
                                        opacity = 0.7)),
-           width_svg = 10, height_svg = 10)
+           width_svg = 9, height_svg = 9)
   })
 
   output$plot_bar <- renderggiraph({
