@@ -39,6 +39,7 @@ fun_plot_bar <- function(data, input_date, range_date){
     summarise(n = sum(n, na.rm = T)) %>%
     summarise(n = max(n, na.rm = T)) %>%
     pull(n)
+  
   max_cases_cum <- data %>%
     select(date, n, id) %>%
     distinct() %>%
@@ -59,6 +60,7 @@ fun_plot_bar <- function(data, input_date, range_date){
                             "\n", n, " nouveaux cas")) %>%
     ggplot(aes(x = date, y = n, tooltip = tooltip)) +
     geom_bar_interactive(stat = "identity", fill = "#0090de", color = "black", alpha = .4) +
+    theme_classic() +
     ylim(0, max_cases) +
     scale_x_date(date_breaks = "1 week",  
                  date_minor_breaks = "1 day",
@@ -66,12 +68,10 @@ fun_plot_bar <- function(data, input_date, range_date){
                  limits = range_date) +
     labs(x = "Date", y = "Nombre de cas",
          title = "Nombre de cas confirmés chaque jour") +
-    theme_classic() +
     theme(axis.title.y = element_text(angle = 0, vjust = .5))
   
     p2 <- data %>%
       filter(date <= input_date) %>%
-      group_by(piece) %>% 
       select(date, n, id) %>%
       distinct() %>%
       group_by(date) %>%
@@ -83,6 +83,7 @@ fun_plot_bar <- function(data, input_date, range_date){
       geom_line(stat = "identity", color = "#0090de") +
       geom_point_interactive(aes(tooltip = tooltip), 
                              stat = "identity", color = "#0090de") +
+      theme_classic() +
       ylim(0, max_cases_cum) +
       scale_x_date(date_breaks = "1 week", 
                    date_minor_breaks = "1 day",
@@ -90,7 +91,6 @@ fun_plot_bar <- function(data, input_date, range_date){
                    limits = range_date) +
       labs(x = "Date", y = "Nombre de cas cumulés",
            title = "Nombre de cas confirmés") +
-      theme_classic() +
       theme(axis.title.y = element_text(angle = 0, vjust = .5))
   return(p1 / p2)
 }

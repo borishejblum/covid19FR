@@ -16,7 +16,8 @@ app_server <- function(input, output, session) {
                 value = dataPlot()[["range"]][1],
                 min = dataPlot()[["range"]][1], max = dataPlot()[["range"]][2],
                 timeFormat = "%Y-%m-%d",
-                animate = animationOptions(interval = 2000),
+                step = 1,
+                animate = animationOptions(interval = 1000),
                 width = "60vh")
   })
 
