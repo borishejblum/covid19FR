@@ -1,22 +1,16 @@
-#################################################################
-# First version Shiny with ggiraph:: package
+#' Launch Covid19FRNA Shiny App
+#'
+#'@param ... additional arguments to be passed to the \link[shiny]{runApp} function.
+#'
+#'@examples
+#'if(interactive()){
+#' vici::run_app()
+#'}
+#'
+#' @export
+#' @importFrom shiny runApp
+run_app <- function(...) {
+  shiny::runApp(system.file("app", package = "Covid19FRNA"), port=8080 ,...)
+}
 
-# packages ---------------------------------------------------------------------
-library(tidyverse)
-library(ggplot2)
-library(maps) # + require mapproj
-library(ggiraph) # interactive plot
-library(shiny)
-library(shinydashboard)
-library(RColorBrewer) # more colors to use and construct personalized gradient
-
-# source files
-source("R/shiny/funs.R")
-source("R/shiny/data_aqui.R")
-source("R/shiny/data_fr.R")
-source("R/shiny/ui.R")
-source("R/shiny/server.R")
-
-# run the shiny app
-shinyApp(ui, server)
 

@@ -1,7 +1,5 @@
-#################################################################
-# Server side
-
-server <- function(input, output, session) {
+#' @import shiny
+app_server <- function(input, output, session) {
   
   dataPlot <- reactive({
     if(input$area == "France"){
