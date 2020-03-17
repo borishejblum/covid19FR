@@ -8,23 +8,29 @@ ui <- dashboardPage(
   ),
   dashboardSidebar(disable = T),
   dashboardBody(
-    includeCSS("R/shiny/style.css"),
+    #includeCSS("R/shiny/style.css"),
     fluidRow(
-      column(12,
+      column(width = 12,
         fluidRow(
           valueBoxOutput("cases_total"),
           valueBoxOutput("cases_day"),
           valueBoxOutput("fct_exp")
         ),
         fluidRow(
-          box(girafeOutput("plot_map", height = "70vh"), height = "70vh"),
+          box(girafeOutput("plot_map", width = "100%", height = "85vh"), height = "85vh"),
           column(6,
             box(uiOutput("slideDate"),
                 selectInput(inputId = "area", label = "Zone géographique",
                             choices = c("France", "Nouvelle Aquitaine"),
                             width = "40vh"),
                 width = NULL),
-            box(girafeOutput("plot_bar"), width = NULL, height = "47vh")
+            tabsetPanel(
+              tabPanel(title = "Nombre de diagnostics par jour",
+                       box(girafeOutput("plot_bar", height = "1000px"), height = "68vh", width = NULL)),
+              tabPanel(title = "Nombre total de cas",
+                       box(girafeOutput("plot_point"), height = "68vh", width = NULL)),
+              type = "pills"
+            )
       )
 
     )
@@ -32,4 +38,3 @@ ui <- dashboardPage(
   )
 )
 )
-

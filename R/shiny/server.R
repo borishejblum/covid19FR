@@ -56,13 +56,20 @@ server <- function(input, output, session) {
     girafe(ggobj = fun_plot_map(dataPlot(), input$date),
            options = list(opts_tooltip(css = "font-size: 11px; color: white; background: black; border-radius: 3px; padding: 3px;",
                                        opacity = 0.7)),
-           width_svg = 10, height_svg = 10)
+           width_svg = 6, height_svg = 6)
   })
-  
+
   output$plot_bar <- renderggiraph({
     girafe(ggobj = fun_plot_bar(dataPlot(), input$date, dateRange()),
            options = list(opts_tooltip(css = "font-size: 11px; color: white; background: black; border-radius: 3px; padding: 3px;",
                                        opacity = 0.7)),
-           width_svg = 10, height_svg = 6)
+           width_svg = 6, height_svg = 6)
+  })
+  
+  output$plot_point <- renderggiraph({
+    girafe(ggobj = fun_plot_point(dataPlot(), input$date, dateRange()),
+           options = list(opts_tooltip(css = "font-size: 11px; color: white; background: black; border-radius: 3px; padding: 3px;",
+                                       opacity = 0.7)),
+           width_svg = 6, height_svg = 6)
   })
 }
