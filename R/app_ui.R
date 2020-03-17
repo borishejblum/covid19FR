@@ -19,14 +19,14 @@ app_ui <- function() {
                  valueBoxOutput("fct_exp")
                ),
                fluidRow(
-                 box(girafeOutput("plot_map", height = "70vh"), height = "70vh"),
+                 box(girafeOutput("plot_map"), height = "85vh"),
                  column(6,
                         box(uiOutput("slideDate"),
                             selectInput(inputId = "area", label = "Zone géographique",
                                         choices = c("France", "Nouvelle Aquitaine"),
                                         width = "40vh"),
                             width = NULL),
-                        box(girafeOutput("plot_bar"), width = NULL, height = "47vh")
+                        box(girafeOutput("plot_bar"), width = NULL, height = "67vh")
                  )
                  
                )

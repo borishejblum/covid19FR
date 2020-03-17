@@ -13,6 +13,7 @@ fun_plot_map <- function(data, input_date){
   color_gradient <- grDevices::colorRampPalette(colors = c("#e0e0e0", #white
                                                 "#0090de")) #blue
   max_cases <- max(data$n_sum, na.rm = T) # max number of cases /dpt
+  #cap_src <- cas
   
   data %>%
     filter(date == input_date) %>%
@@ -59,7 +60,7 @@ fun_plot_bar <- function(data, input_date, range_date){
     mutate(tooltip = paste0("Le ", format(date, "%A %e %B"),
                             "\n", n, " nouveaux cas")) %>%
     ggplot(aes(x = date, y = n, tooltip = tooltip)) +
-    geom_bar_interactive(stat = "identity", fill = "#0090de", color = "black", alpha = .4) +
+    geom_bar_interactive(stat = "identity", fill = "#0090de", alpha = .5) +
     theme_classic() +
     ylim(0, max_cases) +
     scale_x_date(date_breaks = "1 week",  
@@ -78,11 +79,11 @@ fun_plot_bar <- function(data, input_date, range_date){
       summarise(n = sum(n, na.rm = T)) %>%
       mutate(cumn = cumsum(n)) %>%
       mutate(tooltip = paste0("Le ", format(date, "%A %e %B"),
-                              "\n", n, " nouveaux cas")) %>%
+                              "\n", cumn, " cas confirmés")) %>%
       ggplot(aes(x = date, y = cumn)) +
-      geom_line(stat = "identity", color = "#0090de") +
+      geom_line(stat = "identity", color = "#0090de", size = 1, alpha = .5) +
       geom_point_interactive(aes(tooltip = tooltip), 
-                             stat = "identity", color = "#0090de") +
+                             stat = "identity", color = "#0090de", size = 3) +
       theme_classic() +
       ylim(0, max_cases_cum) +
       scale_x_date(date_breaks = "1 week", 
