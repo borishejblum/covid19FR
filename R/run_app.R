@@ -1,10 +1,10 @@
-#' Launch Covid19FRNA Shiny App
+#' Launch covid19FR Shiny App
 #'
 #'@param ... additional arguments to be passed to the \link[shiny]{runApp} function.
 #'
 #'@examples
 #'if(interactive()){
-#' Covid19FRNA::run_app()
+#' covid19FR::run_app()
 #'}
 #'
 #' @export

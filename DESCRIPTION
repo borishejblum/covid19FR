@@ -1,4 +1,4 @@
-Package: Covid19FRNA
+Package: covid19FR
 Type: Package
 Title: Visualizations of the Covid19 epidemics in France and Nouvelle Aquitaine
 Version: 0.1.0
