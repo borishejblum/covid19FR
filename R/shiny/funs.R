@@ -42,43 +42,13 @@ fun_plot_bar <- function(data, input_date, range_date){
     mutate(tooltip = paste0("Le ", format(date, "%A %e %B"),
                             "\n", n, " nouveaux cas")) %>%
     ggplot(aes(x = date, y = n, tooltip = tooltip)) +
-    geom_bar_interactive(stat = "identity", fill = "#0090de", alpha = .3) +
+    geom_bar_interactive(stat = "identity", fill = "#0090de", color = "black", alpha = .4) +
     ylim(0, max_cases) +
     scale_x_date(date_breaks = "1 week", 
                  labels=scales::date_format("%d-%m"),
                  limits = range_date) +
     labs(x = "Date", y = "Nombre de cas",
          title = "Nombre de cas diagnostiqués par jour") +
-    theme_classic() +
-    theme(axis.title.y = element_text(angle = 0, vjust = .5))
-}
-
-# Function to make the geom_point (total cases)
-fun_plot_point <- function(data, input_date, range_date){
-  
-  max_cases <- data %>%
-    select(date, n_sum, id) %>%
-    distinct() %>%
-    filter(date == max(date, na.rm = T)) %>%
-    summarise(n_sum = sum(n_sum, na.rm = T)) %>%
-    pull(n_sum)
-  
-  data %>%
-    filter(date <= input_date) %>%
-    select(date, n_sum, id) %>%
-    distinct() %>%
-    group_by(date) %>%
-    summarise(n_sum = sum(n_sum, na.rm = T)) %>%
-    ggplot(aes(x = date, y = n_sum)) +
-    geom_point_interactive(mapping = aes(tooltip = n_sum), stat = "identity",
-                           color = "#0090de", size = 5) +
-    geom_line(alpha = .5, color = "#0090de", size = 1) +
-    ylim(0, max_cases) +
-    scale_x_date(date_breaks = "1 week", 
-                 labels=scales::date_format("%d-%m"),
-                 limits = range_date) +
-    labs(x = "Date", y = "Nombre de cas",
-         title = "Nombre de cas total") +
     theme_classic() +
     theme(axis.title.y = element_text(angle = 0, vjust = .5))
 }

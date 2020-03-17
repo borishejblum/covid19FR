@@ -9,7 +9,6 @@ library(ggiraph) # interactive plot
 library(shiny)
 library(shinydashboard)
 library(RColorBrewer) # more colors to use and construct personalized gradient
-library(widgetframe)
 
 # source files
 source("R/shiny/funs.R")
