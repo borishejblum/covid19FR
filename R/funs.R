@@ -7,10 +7,11 @@
 #' @import dplyr
 #' @import ggiraph
 #' @import ggplot2
+#' @importFrom ggiraph guide_colourbar_interactive geom_polygon_interactive scale_fill_gradientn_interactive
 #' @import grDevices
 fun_plot_map <- function(data, input_date){
   
-  color_gradient <- grDevices::colorRampPalette(colors = c("#e0e0e0", #white
+  mycolor_gradient <- grDevices::colorRampPalette(colors = c("#e0e0e0", #white
                                                 "#0090de")) #blue
   max_cases <- max(data$n_sum, na.rm = T) # max number of cases /dpt
   #cap_src <- cas
@@ -19,7 +20,7 @@ fun_plot_map <- function(data, input_date){
     filter(date == input_date) %>%
     ggplot(aes(x = long, y = lat, group = group, tooltip = tooltip, fill = n_sum)) +
     ggiraph::geom_polygon_interactive(color = "black") +
-    ggiraph::scale_fill_gradientn_interactive(colors = color_gradient(max_cases),
+    ggiraph::scale_fill_gradientn_interactive(colors = mycolor_gradient(max_cases),
                                      limits = c(0, max_cases),
                                      name = "Nombre de cas") +
     coord_map() +
